@@ -32,7 +32,6 @@ can work from what was actually decided instead of guessing.
 | iPhone and iPad | [App Store](https://apps.apple.com/app/apple-store/id6504585781?ct=cursor-plugin&mt=8) |
 | Android | [Google Play](https://play.google.com/store/apps/details?id=ai.twinmind.android&referrer=utm_source%3Dcursor-plugin%26utm_medium%3Dreadme%26utm_campaign%3Dcursor-marketplace) |
 | Mac and Windows | [Desktop app](https://twinmind.com/download?utm_source=cursor-plugin&utm_medium=readme&utm_campaign=cursor-marketplace&utm_content=desktop) |
-| Chrome | [Chrome extension](https://chromewebstore.google.com/detail/twinmind/agpbjhhcmoanaljagpoheldgjhclepdj?utm_source=cursor-plugin&utm_medium=readme&utm_campaign=cursor-marketplace) |
 
 New to TwinMind? Learn more at [twinmind.com](https://twinmind.com/?utm_source=cursor-plugin&utm_medium=readme&utm_campaign=cursor-marketplace&utm_content=learn-more).
 
