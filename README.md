@@ -69,7 +69,7 @@ To test locally, clone this repository into Cursor's local plugins folder.
 Cursor rejects symlinks whose target is outside `~/.cursor/plugins/local`.
 
 ```bash
-git clone https://github.com/thirdear-ai/twinmind-cursor-plugin.git ~/.cursor/plugins/local/twinmind
+git clone https://github.com/twinmindai/twinmind-cursor-plugin.git ~/.cursor/plugins/local/twinmind
 ```
 
 Then restart Cursor and confirm the TwinMind tools appear under **Customize → MCP**.

@@ -2,8 +2,8 @@ name: MCP drift
 
 # Daily check that the live TwinMind MCP server still matches what this plugin
 # documents. On a difference it pushes the new snapshot to the mcp-drift branch
-# and opens (or comments on) a single issue with a link to open the PR. The org
-# does not let Actions create PRs, so a person opens it. A failed fetch fails
+# and opens (or comments on) a single issue with a link to open the PR. Actions
+# is not allowed to create PRs here, so a person opens it. A failed fetch fails
 # the run, which GitHub emails about for scheduled workflows.
 
 on:
