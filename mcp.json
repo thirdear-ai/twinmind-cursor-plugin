@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "twinmind": {
+      "url": "https://api.twinmind.com/mcp"
+    }
+  }
+}
