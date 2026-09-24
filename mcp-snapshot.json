@@ -1,0 +1,103 @@
+{
+  "authorizationServer": {
+    "authorization_endpoint": "https://api.twinmind.com/oauth/authorize",
+    "code_challenge_methods_supported": [
+      "S256"
+    ],
+    "grant_types_supported": [
+      "authorization_code",
+      "refresh_token",
+      "urn:ietf:params:oauth:grant-type:token-exchange"
+    ],
+    "issuer": "https://api.twinmind.com/oauth",
+    "registration_endpoint": "https://api.twinmind.com/oauth/register",
+    "scopes_supported": [
+      "mcp:read"
+    ],
+    "token_endpoint": "https://api.twinmind.com/oauth/token",
+    "token_endpoint_auth_methods_supported": [
+      "none"
+    ]
+  },
+  "protectedResource": {
+    "authorization_servers": [
+      "https://api.twinmind.com/oauth"
+    ],
+    "resource": "https://api.twinmind.com/mcp",
+    "scopes_supported": [
+      "mcp:read"
+    ]
+  },
+  "tools": [
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "description": "Fetch complete content for one or more search results. Pass id for one result or ids for a batch of up to 10. For summary-{meeting_id}, returns the full untruncated transcript. For todo-{todo_id}, returns the task text and metadata. Prefer prefixed IDs returned by search; raw IDs remain supported and are auto-detected.",
+      "name": "fetch",
+      "parameters": [
+        "id",
+        "ids"
+      ],
+      "required": [],
+      "title": "Fetch Content"
+    },
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "description": "Search the authenticated user's meeting notes and tasks. Returns lightweight previews with an ID, title, concise summary, and user-openable URL when available. It never returns full transcripts. Call fetch with a returned ID to retrieve complete content. Meeting IDs use summary-{meeting_id}; task IDs use todo-{todo_id}.",
+      "name": "search",
+      "parameters": [
+        "query"
+      ],
+      "required": [
+        "query"
+      ],
+      "title": "Search TwinMind"
+    },
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "description": "Search the authenticated user's meeting summaries and notes. Use this for filtered overviews, themes, action items, or recent meetings—not for full transcripts. Supply a natural-language query for semantic ranking and optional keywords or local-time bounds for filtering. Results include meeting IDs, titles, summaries, actions, times, and locations. To read a complete transcript, call fetch with summary-{meeting_id}.",
+      "name": "summary_search",
+      "parameters": [
+        "end_time",
+        "keywords",
+        "limit",
+        "query",
+        "start_time"
+      ],
+      "required": [],
+      "title": "Search Meeting Summaries"
+    },
+    {
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "description": "Search or list the authenticated user's tasks. Results combine review tasks (AI suggestions awaiting confirmation) and main tasks (saved active tasks), and identify each task's source. Use keywords to search task content and descriptions; omit keywords to list the most recent tasks. Completed and deleted tasks are excluded unless explicitly requested.",
+      "name": "todo_search",
+      "parameters": [
+        "include_completed",
+        "include_deleted",
+        "keywords",
+        "limit"
+      ],
+      "required": [],
+      "title": "Search Tasks"
+    }
+  ]
+}

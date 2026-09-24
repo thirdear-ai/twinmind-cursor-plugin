@@ -1,11 +1,11 @@
 # TwinMind plugin for Cursor
 
-Bring your TwinMind meeting memory into Cursor. Ask about decisions, requirements,
-and action items from your meetings without leaving your editor.
+Bring your TwinMind memory into Cursor. Ask about decisions, requirements, and
+context from your meetings and conversations without leaving your editor.
 
-TwinMind is an AI meeting memory app that captures, transcribes, and summarizes
-your meetings. This plugin connects Cursor to the TwinMind MCP server so your
-meeting context travels with you into the code.
+TwinMind is your private memory: it captures, transcribes, and summarizes your
+meetings, conversations, and ideas. This plugin connects Cursor to the TwinMind
+MCP server so that context travels with you into the code.
 
 ## Install
 
@@ -18,7 +18,7 @@ You need a TwinMind account. Sign up at [twinmind.com](https://twinmind.com).
 ## What you can ask
 
 - "What did we decide about the auth refactor in last week's design review?"
-- "What did I commit to shipping this sprint?"
+- "What was the reasoning behind switching to Postgres?"
 - "Pull the requirements we discussed for the onboarding flow."
 - "Summarize everything said about the rate limiting issue."
 
@@ -31,18 +31,17 @@ No local process, no API keys to paste.
 
 | Tool | Description |
 | --- | --- |
-| `search` | Broad search across your meeting content |
-| `summary_search` | Search meeting summaries for topics, decisions, and outcomes |
-| `todo_search` | Search action items and follow-ups |
-| `fetch` | Retrieve the full record for a specific result |
+| `search` | Broad search across your memories |
+| `summary_search` | Search memory summaries for topics, decisions, and outcomes, with optional date range |
+| `fetch` | Retrieve the full memory, including transcript, for a result |
 
 The server is currently read-only. It does not create, edit, or delete anything
 in your TwinMind account.
 
 ### Skill
 
-`meeting-context` tells the agent when to reach for meeting history and how to
-attribute what it finds, so it pulls context when it is genuinely relevant rather
+`memory-context` tells the agent when to reach for your TwinMind memory and how
+to attribute what it finds, so it pulls context when it is genuinely relevant rather
 than on every prompt.
 
 ## Authentication
@@ -54,7 +53,7 @@ TwinMind server from **Customize → MCP** in Cursor.
 
 ## Privacy
 
-The plugin accesses only the meeting data in your own TwinMind account, and only
+The plugin accesses only the memories in your own TwinMind account, and only
 when the agent calls a tool in response to your request. See the
 [TwinMind privacy policy](https://twinmind.com/legal/privacy-policy).
 

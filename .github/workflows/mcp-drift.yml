@@ -1,0 +1,65 @@
+name: MCP drift
+
+# Daily check that the live TwinMind MCP server still matches what this plugin
+# documents. On a difference it opens (or refreshes) a single PR that updates
+# mcp-snapshot.json and lists what else to update. A failed fetch fails the run,
+# which GitHub emails about for scheduled workflows.
+
+on:
+  schedule:
+    - cron: "17 15 * * *" # daily, 08:17 PT
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: mcp-drift
+  cancel-in-progress: false
+
+env:
+  DRIFT_BRANCH: mcp-drift
+  DRIFT_REVIEWERS: sunny3e
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: "24"
+
+      - name: Snapshot live MCP server
+        run: node scripts/snapshot-mcp.mjs
+
+      - name: Open or update drift PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- mcp-snapshot.json; then
+            echo "No drift."
+            exit 0
+          fi
+          git diff -- mcp-snapshot.json
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -C "$DRIFT_BRANCH"
+          git commit -m "Update MCP snapshot from live server" -- mcp-snapshot.json
+          git push --force origin "$DRIFT_BRANCH"
+
+          open_pr=$(gh pr list --head "$DRIFT_BRANCH" --state open --json number --jq '.[0].number')
+          if [ -n "$open_pr" ]; then
+            gh pr comment "$open_pr" --body "Snapshot refreshed: the live MCP server changed again."
+          else
+            gh pr create \
+              --base main \
+              --head "$DRIFT_BRANCH" \
+              --title "MCP server changed: update plugin docs" \
+              --body-file .github/mcp-drift-pr.md \
+              --reviewer "$DRIFT_REVIEWERS"
+          fi

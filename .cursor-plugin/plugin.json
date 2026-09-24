@@ -1,7 +1,7 @@
 {
   "name": "twinmind",
   "version": "1.0.0",
-  "description": "Bring your TwinMind meeting memory into Cursor. Search meeting summaries, transcripts, and action items without leaving your editor.",
+  "description": "Bring your TwinMind memory into Cursor. Search what was said and decided in your meetings, conversations, and ideas without leaving your editor.",
   "author": {
     "name": "TwinMind",
     "email": "support@twinmind.com"
@@ -10,11 +10,11 @@
   "repository": "https://github.com/twinmind-ai/twinmind-cursor-plugin",
   "license": "MIT",
   "keywords": [
-    "meetings",
     "memory",
+    "second-brain",
+    "meetings",
     "transcripts",
-    "action-items",
-    "notes",
+    "context",
     "productivity"
   ],
   "logo": "assets/logo.svg"
