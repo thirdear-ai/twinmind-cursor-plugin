@@ -1,9 +1,10 @@
 name: MCP drift
 
 # Daily check that the live TwinMind MCP server still matches what this plugin
-# documents. On a difference it opens (or refreshes) a single PR that updates
-# mcp-snapshot.json and lists what else to update. A failed fetch fails the run,
-# which GitHub emails about for scheduled workflows.
+# documents. On a difference it pushes the new snapshot to the mcp-drift branch
+# and opens (or comments on) a single issue with a link to open the PR. The org
+# does not let Actions create PRs, so a person opens it. A failed fetch fails
+# the run, which GitHub emails about for scheduled workflows.
 
 on:
   schedule:
@@ -12,7 +13,7 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
+  issues: write
 
 concurrency:
   group: mcp-drift
@@ -20,7 +21,8 @@ concurrency:
 
 env:
   DRIFT_BRANCH: mcp-drift
-  DRIFT_REVIEWERS: sunny3e
+  DRIFT_ASSIGNEES: sunny3e
+  DRIFT_LABEL: mcp-drift
 
 jobs:
   drift:
@@ -36,7 +38,7 @@ jobs:
       - name: Snapshot live MCP server
         run: node scripts/snapshot-mcp.mjs
 
-      - name: Open or update drift PR
+      - name: Push snapshot and open or update drift issue
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -52,14 +54,22 @@ jobs:
           git commit -m "Update MCP snapshot from live server" -- mcp-snapshot.json
           git push --force origin "$DRIFT_BRANCH"
 
-          open_pr=$(gh pr list --head "$DRIFT_BRANCH" --state open --json number --jq '.[0].number')
-          if [ -n "$open_pr" ]; then
-            gh pr comment "$open_pr" --body "Snapshot refreshed: the live MCP server changed again."
+          compare_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/compare/main...${DRIFT_BRANCH}?expand=1"
+          run_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          gh label create "$DRIFT_LABEL" --color D93F0B --description "Live MCP server changed" 2>/dev/null || true
+
+          open_issue=$(gh issue list --label "$DRIFT_LABEL" --state open --json number --jq '.[0].number')
+          if [ -n "$open_issue" ]; then
+            gh issue comment "$open_issue" --body "The live MCP server changed again. The \`$DRIFT_BRANCH\` branch has the latest snapshot. Diff: $run_url"
           else
-            gh pr create \
-              --base main \
-              --head "$DRIFT_BRANCH" \
+            {
+              echo "**[Open the PR]($compare_url)** from the \`$DRIFT_BRANCH\` branch, which has the updated snapshot. Diff: $run_url"
+              echo
+              cat .github/mcp-drift-pr.md
+            } > "$RUNNER_TEMP/issue.md"
+            gh issue create \
               --title "MCP server changed: update plugin docs" \
-              --body-file .github/mcp-drift-pr.md \
-              --reviewer "$DRIFT_REVIEWERS"
+              --label "$DRIFT_LABEL" \
+              --assignee "$DRIFT_ASSIGNEES" \
+              --body-file "$RUNNER_TEMP/issue.md"
           fi

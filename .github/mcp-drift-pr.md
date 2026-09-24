@@ -1,5 +1,5 @@
 The live MCP server at `api.twinmind.com/mcp` no longer matches `mcp-snapshot.json`.
-The diff in this PR shows what changed. Before merging:
+The snapshot diff shows what changed. Before merging the PR:
 
 - [ ] `README.md`: tool table, authentication section
 - [ ] `skills/memory-context/SKILL.md`: tool names and when to use each
