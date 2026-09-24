@@ -21,6 +21,9 @@ can work from what was actually decided instead of guessing.
 
 ## Get started
 
+The TwinMind plugin requires a **TwinMind Max** subscription. See
+[plans and pricing](https://twinmind.com/pricing?utm_source=cursor-plugin&utm_medium=readme&utm_campaign=cursor-marketplace&utm_content=pricing).
+
 1. **Get TwinMind** and capture a few conversations. See the download links below.
 2. In Cursor, open the Plugins marketplace, search for **TwinMind**, and install.
 3. Sign in when Cursor prompts you. A browser window opens once; there are no API keys to paste.
@@ -65,6 +68,11 @@ when it is relevant rather than on every prompt.
 - Read the [TwinMind privacy policy](https://twinmind.com/legal/privacy-policy?utm_source=cursor-plugin&utm_medium=readme&utm_campaign=cursor-marketplace&utm_content=privacy).
 
 ## Troubleshooting
+
+**Tools say a Max subscription is required.** You can sign in on any plan, but
+searching your memory from Cursor needs TwinMind Max.
+[Upgrade here](https://twinmind.com/pricing?utm_source=cursor-plugin&utm_medium=readme&utm_campaign=cursor-marketplace&utm_content=upgrade), then try again.
+You don't need to reconnect.
 
 **Tools return authentication errors.** Reconnect the TwinMind server from
 **Customize → MCP** in Cursor.

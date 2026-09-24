@@ -1,7 +1,7 @@
 {
   "name": "twinmind",
   "version": "1.0.0",
-  "description": "Bring your TwinMind memory into Cursor. Search what was said and decided in your meetings, conversations, and ideas without leaving your editor.",
+  "description": "Bring your TwinMind memory into Cursor. Search what was said and decided in your meetings, conversations, and ideas without leaving your editor. Requires TwinMind Max.",
   "author": {
     "name": "TwinMind",
     "email": "support@twinmind.com"

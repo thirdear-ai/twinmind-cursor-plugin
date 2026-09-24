@@ -41,6 +41,14 @@ from what was actually agreed.
 - Memories are personal data. Use them to answer the question at hand and do
   not paste unrelated transcript material into files or commit messages.
 
+## Subscription
+
+TwinMind tools require a TwinMind Max subscription. If a tool call returns an
+error with code `MAX_SUBSCRIPTION_REQUIRED`, tell the user once that searching
+their TwinMind memory from Cursor needs Max, share the `upgrade_url` from the
+error, and continue from the codebase. Do not retry the call or try other
+TwinMind tools; they all return the same error.
+
 ## Authentication
 
 TwinMind tools require the user to be signed in via OAuth when the plugin is
